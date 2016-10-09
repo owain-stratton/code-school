@@ -39,3 +39,19 @@ function displayTags(...tags) {
 // Spread operator used for breaking an array into single parameters and called on function invocation
 let sentence = ['hello', 'beeds', 'you', 'are', 'sweet'];
 displayTags(...sentence);
+
+// Arrow functions have lexical binding and bind to the scope of where they are defined not used
+function TagComponent(target, urlPath) {
+   this.targetElement = target;
+   this.urlPath = urlPath;
+}
+
+TagComponent.prototype.render = function() {
+   getRequest(this.urlPath, (data) => {
+      let tags = data.tags;
+      displayTags(this.targetElement, ...tags);
+   });
+}
+
+let tagComponent = new TagComponent(targetDiv, 'url');
+tagComponent.render();
